@@ -2,6 +2,6 @@
 
 CC=cc
 CFLAGS="-Wall -Wextra -pedantic"
-LDFLAGS="-lraylib"
+LDFLAGS="-Iinclude -lraylib"
 
 $CC main.c -o InfinityTicTacToe $CFLAGS $LDFLAGS
