@@ -9,9 +9,11 @@
 int
 main(void)
 {
-	Vector2 screenSize = (Vector2){ 800, 800 };
+	//Vector2 screenSize = (Vector2){ 1000, 600};
+	Vector2 screenSize = (Vector2){ 600, 1000};
 
 	SetConfigFlags(FLAG_MSAA_4X_HINT);
+	SetConfigFlags(FLAG_WINDOW_RESIZABLE);
 	InitWindow(screenSize.x, screenSize.y, "Infinity TicTacToe");
 
 	SetTargetFPS(60);
@@ -22,10 +24,10 @@ main(void)
 
 		BeginDrawing();
 
-		drawBoard(screenSize, 50, 3);
+		drawBoard(3);
 
-		drawRing((Vector2){ screenSize.x/2, screenSize.y/2 });
-		drawCross(screenSize.x);
+		// drawRing((Vector2){ (screenSize.x/2) - 300, (screenSize.y/2) - 300 });
+		// drawCross(screenSize.x);
 
 		EndDrawing();
 	}

@@ -1,30 +1,32 @@
 #ifndef BOARD_H
 #define BOARD_H
 
-#define BOARD_COLOR (Color) { 59, 66, 82 }
-
-void drawBoard(Vector2 screenSize, int padding, int gridSize);
+void drawBoard(int gridSize);
 
 #ifdef BOARD_IMPLEMENTATION
 
-void
-drawBoard(Vector2 screenSize, int padding, int gridSize)
+void drawBoard(int gridSize)
 {
-	int cellSize = (screenSize.x - 2 * padding) / gridSize;
+    int minSize = (GetScreenWidth() <= GetScreenHeight()) ? GetScreenWidth() : GetScreenHeight();
+    int padding = GetScreenWidth() / 50;
+    int cellSize = (minSize - 2 * padding) / gridSize;
+	int borderSize = minSize/50;
 
-	for (int i = 1; i < gridSize; i++) {
-		DrawLineEx(
-				(Vector2){ padding + i*cellSize, padding + i },
-				(Vector2){ padding + i*cellSize, screenSize.y - padding + i },
-				 8,
-				 WHITE);
+    for (int i = 1; i < gridSize; i++) {
+        DrawLineEx(
+            (Vector2){((GetScreenWidth() / 2) - ((cellSize * 3) / 2)) + (i * cellSize), ((GetScreenHeight() / 2) - ((cellSize * 3) / 2)) + padding},
+            (Vector2){((GetScreenWidth() / 2) - ((cellSize * 3) / 2)) + (i * cellSize), (((GetScreenHeight() / 2) - ((cellSize * 3) / 2)) + (cellSize * gridSize)) - padding},
+            borderSize,
+            WHITE
+        );
 
-		DrawLineEx(
-				(Vector2){ padding + i, padding + i*cellSize },
-				(Vector2){ screenSize.y - padding + i, padding + i*cellSize },
-				8,
-				WHITE);
-	}
+        DrawLineEx(
+            (Vector2){((GetScreenWidth() / 2) - ((cellSize * 3) / 2)) + padding, ((GetScreenHeight() / 2) - ((cellSize * 3) / 2)) + (i * cellSize)},
+            (Vector2){(((GetScreenWidth() / 2) - ((cellSize * 3) / 2)) + (cellSize * gridSize)) - padding, ((GetScreenHeight() / 2) - ((cellSize * 3) / 2)) + (i * cellSize)},
+            borderSize,
+            WHITE
+        );
+    }
 }
 
 #endif
