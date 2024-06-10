@@ -2,7 +2,7 @@
 #define SHAPE_H
 
 void drawRing(Vector2 position, int gridSize);
-void drawCross(int position);
+void drawCross(Vector2 position, int gridSize);
 
 #ifdef SHAPE_IMPLEMENTATION
 
@@ -19,22 +19,40 @@ drawRing(Vector2 position, int gridSize)
             (((GetScreenWidth()/2) - ((cellSize*gridSize)/2)) + (((position.x*cellSize)) + cellSize/2)),
             (((GetScreenHeight()/2) - ((cellSize*gridSize)/2)) + (((position.y*cellSize)) + cellSize/2))
         },
-        80*ringSize/100, ringSize, 0.0f, 360.0f, 0.0f, BLUE);
+        80*ringSize/100,
+        ringSize, 0.0f, 360.0f, 0.0f, BLUE);
 }
 
 void
-drawCross(int position)
+drawCross(Vector2 position, int gridSize)
 {
+    int minSize = (GetScreenWidth() <= GetScreenHeight()) ? GetScreenWidth() : GetScreenHeight();
+    int padding = GetScreenWidth() / 50;
+    int cellSize = (minSize - 2 * padding) / gridSize;
+    float crossSize = (float)50*cellSize/100;
+
     DrawLineEx(
-        (Vector2){ (position/2) - 80, (position/2) - 80 },
-        (Vector2){ (position/2) + 80, (position/2) + 80 },
-        20,
+        (Vector2){
+            GetScreenWidth()/2 - cellSize*gridSize/2 + position.x*cellSize + cellSize/2 - crossSize/2,
+            GetScreenHeight()/2 - cellSize*gridSize/2 + position.y*cellSize + cellSize/2 - crossSize/2
+        },
+        (Vector2){
+            GetScreenWidth()/2 - cellSize*gridSize/2 + position.x*cellSize + cellSize/2 + crossSize/2,
+            GetScreenHeight()/2 - cellSize*gridSize/2 + position.y*cellSize + cellSize/2 + crossSize/2
+        },
+        15*crossSize/100,
         RED
     ); 
     DrawLineEx(
-        (Vector2){ (position/2) + 80, (position/2) - 80 },
-        (Vector2){ (position/2) - 80, (position/2) + 80 },
-        20,
+        (Vector2){
+            GetScreenWidth()/2 - cellSize*gridSize/2 + position.x*cellSize + cellSize/2 + crossSize/2,
+            GetScreenHeight()/2 - cellSize*gridSize/2 + position.y*cellSize + cellSize/2 - crossSize/2
+        },
+        (Vector2){
+            GetScreenWidth()/2 - cellSize*gridSize/2 + position.x*cellSize + cellSize/2 - crossSize/2,
+            GetScreenHeight()/2 - cellSize*gridSize/2 + position.y*cellSize + cellSize/2 + crossSize/2
+        },
+        15*crossSize/100,
         RED
     ); 
 }
