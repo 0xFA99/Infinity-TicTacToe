@@ -3,8 +3,14 @@
 #define BOARD_IMPLEMENTATION
 #include "board.h"
 
-#define SHAPE_IMPLEMENTATION
-#include "shape.h"
+// #define SHAPE_IMPLEMENTATION
+// #include "shape.h"
+// 
+// #define INPUT_IMPLEMENTATION
+// #include "input.h"
+
+#define BLACK0 (Color){ 76, 86, 106, 255 }
+#define WHITE0 (Color){ 244, 244, 244, 255 }
 
 int
 main(void)
@@ -15,28 +21,22 @@ main(void)
 	SetConfigFlags(FLAG_WINDOW_RESIZABLE);
 	InitWindow(screenSize.x, screenSize.y, "Infinity TicTacToe");
 
+	Board board = initBoard(3, BLACK0, WHITE0);
+
 	SetTargetFPS(60);
 
 	while (!WindowShouldClose()) {
 
 		ClearBackground(BLACK);
 
+		// handleInput(3);
+		updateBoardSize(&board);
+
 		BeginDrawing();
 
-		drawBoard(3);
+		drawBoard(&board);
 
-		drawCross((Vector2){ 0, 0 }, 3);
-		drawCross((Vector2){ 0, 1 }, 3);
-		drawCross((Vector2){ 0, 2 }, 3);
-
-		drawCross((Vector2){ 1, 0 }, 3);
-		drawCross((Vector2){ 1, 1 }, 3);
-		drawCross((Vector2){ 1, 2 }, 3);
-
-		drawCross((Vector2){ 2, 0 }, 3);
-		drawCross((Vector2){ 2, 1 }, 3);
-		drawCross((Vector2){ 2, 2 }, 3);
-
+		// drawCollision();
 
 		EndDrawing();
 	}
