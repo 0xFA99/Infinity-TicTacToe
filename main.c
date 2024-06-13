@@ -1,12 +1,12 @@
 #include <raylib.h>
 
-#include "appearance.h"
+#include "game.h"
 
 #define BOARD_IMPLEMENTATION
 #include "board.h"
 
-// #define SHAPE_IMPLEMENTATION
-// #include "shape.h"
+#define SHAPE_IMPLEMENTATION
+#include "shape.h"
 
 #define INPUT_IMPLEMENTATION
 #include "input.h"
@@ -20,7 +20,7 @@ main(void)
 	SetConfigFlags(FLAG_WINDOW_RESIZABLE);
 	InitWindow(screenSize.x, screenSize.y, "Infinity TicTacToe");
 
-	Board board = initBoard(3, BLACK0, WHITE0);
+	Board board = initBoard(GRID, BLACK0, WHITE0);
 
 	SetTargetFPS(60);
 
@@ -37,6 +37,8 @@ main(void)
 		drawBoard(&board);
 
 		drawCollision(&board);
+		drawRing(&board, (Vector2){ 1, 2 }, BLUE0);
+		drawCross(&board, (Vector2){ 2, 2 }, RED0);
 
 		EndDrawing();
 	}
