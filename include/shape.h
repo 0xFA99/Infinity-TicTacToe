@@ -1,60 +1,77 @@
 #ifndef SHAPE_H
 #define SHAPE_H
 
-void drawRing(Vector2 position, int gridSize);
-void drawCross(Vector2 position, int gridSize);
+#include "game.h"
+#include "board.h"
+
+void drawRing(Board *board, Vector2 position, Color color);
+void drawCross(Board *board, Vector2 position, Color color);
 
 #ifdef SHAPE_IMPLEMENTATION
 
 void
-drawRing(Vector2 position, int gridSize)
+drawRing(Board *board, Vector2 position, Color color)
 {
-    int minSize = (GetScreenWidth() <= GetScreenHeight()) ? GetScreenWidth() : GetScreenHeight();
-    int padding = GetScreenWidth() / 50;
-    int cellSize = (minSize - 2 * padding) / gridSize;
-    float ringSize = (float)30*cellSize/100;
+    // void DrawCircle(int centerX, int centerY, float radius, Color color); // Draw a color-filled circle
+    // DrawCircle(
+    //     board->startOffset.x + board->cell*position.x - board->cell/2,
+    //     board->startOffset.y + board->cell*position.y - board->cell/2,
+    //     board->cell/3,
+    //     color
+    // );
+    // DrawCircle(
+    //     board->startOffset.x + board->cell*position.x - board->cell/2,
+    //     board->startOffset.y + board->cell*position.y - board->cell/2,
+    //     board->cell/4,
+    //     BLACK0
+    // );
 
+    // void DrawRing(Vector2 center, float innerRadius, float outerRadius, float startAngle, float endAngle, int segments, Color color);
     DrawRing(
-        (Vector2) {
-            (((GetScreenWidth()/2) - ((cellSize*gridSize)/2)) + (((position.x*cellSize)) + cellSize/2)),
-            (((GetScreenHeight()/2) - ((cellSize*gridSize)/2)) + (((position.y*cellSize)) + cellSize/2))
+        (Vector2){
+            board->startOffset.x + board->cell*position.x - board->cell/2,
+            board->startOffset.y + board->cell*position.y - board->cell/2,
         },
-        80*ringSize/100,
-        ringSize, 0.0f, 360.0f, 0.0f, BLUE);
+        board->cell/4,
+        board->cell/3,
+        0,
+        360,
+        0,
+        color
+    );
+
 }
 
 void
-drawCross(Vector2 position, int gridSize)
+drawCross(Board *board, Vector2 position, Color color)
 {
-    int minSize = (GetScreenWidth() <= GetScreenHeight()) ? GetScreenWidth() : GetScreenHeight();
-    int padding = GetScreenWidth() / 50;
-    int cellSize = (minSize - 2 * padding) / gridSize;
-    float crossSize = (float)50*cellSize/100;
+    // void DrawLineEx(Vector2 board->startPos, Vector2 endPos, float thick, Color color);                       // Draw a line (using triangles/quads)
+    int size = board->cell/3 - board->cell/4;
 
     DrawLineEx(
-        (Vector2){
-            GetScreenWidth()/2 - cellSize*gridSize/2 + position.x*cellSize + cellSize/2 - crossSize/2,
-            GetScreenHeight()/2 - cellSize*gridSize/2 + position.y*cellSize + cellSize/2 - crossSize/2
+        (Vector2) {
+            board->startOffset.x + board->cell*position.x - board->cell/2 - board->cell/3 + size,
+            board->startOffset.y + board->cell*position.y - board->cell/2 - board->cell/3 + size
         },
-        (Vector2){
-            GetScreenWidth()/2 - cellSize*gridSize/2 + position.x*cellSize + cellSize/2 + crossSize/2,
-            GetScreenHeight()/2 - cellSize*gridSize/2 + position.y*cellSize + cellSize/2 + crossSize/2
+        (Vector2) {
+            board->startOffset.x + board->cell*position.x - board->cell/2 + board->cell/3 - size,
+            board->startOffset.y + board->cell*position.y - board->cell/2 + board->cell/3 - size
         },
-        15*crossSize/100,
-        RED
-    ); 
+        size,
+        color
+    );
     DrawLineEx(
-        (Vector2){
-            GetScreenWidth()/2 - cellSize*gridSize/2 + position.x*cellSize + cellSize/2 + crossSize/2,
-            GetScreenHeight()/2 - cellSize*gridSize/2 + position.y*cellSize + cellSize/2 - crossSize/2
+        (Vector2) {
+            board->startOffset.x + board->cell*position.x - board->cell/2 + board->cell/3 - size,
+            board->startOffset.y + board->cell*position.y - board->cell/2 - board->cell/3 + size
         },
-        (Vector2){
-            GetScreenWidth()/2 - cellSize*gridSize/2 + position.x*cellSize + cellSize/2 - crossSize/2,
-            GetScreenHeight()/2 - cellSize*gridSize/2 + position.y*cellSize + cellSize/2 + crossSize/2
+        (Vector2) {
+            board->startOffset.x + board->cell*position.x - board->cell/2 - board->cell/3 + size,
+            board->startOffset.y + board->cell*position.y - board->cell/2 + board->cell/3 - size
         },
-        15*crossSize/100,
-        RED
-    ); 
+        size,
+        color
+    );
 }
 
 #endif
