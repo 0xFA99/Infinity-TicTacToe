@@ -14,7 +14,7 @@
 int
 main(void)
 {
-	Vector2 screenSize = (Vector2){ 600, 1000};
+	Vector2 screenSize = (Vector2){ 600, 1000 };
 	
 	SetConfigFlags(FLAG_MSAA_4X_HINT);
 	SetConfigFlags(FLAG_WINDOW_RESIZABLE);
@@ -36,9 +36,7 @@ main(void)
 
 		drawBoard(&board);
 
-		drawCollision(&board);
-		drawRing(&board, (Vector2){ 1, 2 }, BLUE0);
-		drawCross(&board, (Vector2){ 2, 2 }, RED0);
+		drawCell(&board);
 
 		EndDrawing();
 	}

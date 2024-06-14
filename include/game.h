@@ -13,16 +13,15 @@
 
 #define GRID 3
 
-typedef enum CellState {
-    EMPTY = 0,
-    FILLED_X,
-    FILLED_O,
-    HOVER
-} CellState;
+typedef enum CellState { EMPTY = 0, FILLED_X, FILLED_O } CellState;
 
-Rectangle cellList[GRID*GRID] = { 0 };
-int cellStateList[GRID*GRID] = { 0 };
+typedef struct SCell {
+    Rectangle rect;
+    CellState state;
+    bool collision;
+} SCell;
 
+SCell cellList[GRID*GRID] = { 0 };
 Vector2 mousePos;
 
 #endif
