@@ -46,10 +46,10 @@ static void
 updateBoardCellList(Board *board)
 {
     for (int i = 0; i < board->grid*board->grid; i++) {
-        cellList[i].x = board->line/2 + board->startOffset.x + board->cell*(i%board->grid);
-        cellList[i].y = board->line/2 + board->startOffset.y + board->cell*(i/board->grid);
-        cellList[i].width = board->cell - board->line;
-        cellList[i].height = board->cell - board->line;
+        cellList[i].rect.x = board->line/2 + board->startOffset.x + board->cell*(i%board->grid);
+        cellList[i].rect.y = board->line/2 + board->startOffset.y + board->cell*(i/board->grid);
+        cellList[i].rect.width = board->cell - board->line;
+        cellList[i].rect.height = board->cell - board->line;
     }
 }
 
@@ -62,6 +62,12 @@ initBoard(int grid, Color background, Color foreground)
     board.background = background;
 
     updateBoardSize(&board);
+
+    // Init cellList
+    for (int i = 0; i < grid*grid; i++) {
+        cellList[i].state = EMPTY;
+        cellList[i].collision = false;
+    }
 
     return board;
 }

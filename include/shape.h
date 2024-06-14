@@ -12,21 +12,6 @@ void drawCross(Board *board, Vector2 position, Color color);
 void
 drawRing(Board *board, Vector2 position, Color color)
 {
-    // void DrawCircle(int centerX, int centerY, float radius, Color color); // Draw a color-filled circle
-    // DrawCircle(
-    //     board->startOffset.x + board->cell*position.x - board->cell/2,
-    //     board->startOffset.y + board->cell*position.y - board->cell/2,
-    //     board->cell/3,
-    //     color
-    // );
-    // DrawCircle(
-    //     board->startOffset.x + board->cell*position.x - board->cell/2,
-    //     board->startOffset.y + board->cell*position.y - board->cell/2,
-    //     board->cell/4,
-    //     BLACK0
-    // );
-
-    // void DrawRing(Vector2 center, float innerRadius, float outerRadius, float startAngle, float endAngle, int segments, Color color);
     DrawRing(
         (Vector2){
             board->startOffset.x + board->cell*position.x - board->cell/2,
@@ -39,7 +24,6 @@ drawRing(Board *board, Vector2 position, Color color)
         0,
         color
     );
-
 }
 
 void
